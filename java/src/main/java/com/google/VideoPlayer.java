@@ -150,7 +150,6 @@ public class VideoPlayer {
       }
     }
 
-
     if(canAdd) {
       playlistRequested.addVideo(videoRequested);
       System.out.printf("Added video to %s: %s%n", playlistName, videoRequested.getTitle() );
@@ -249,7 +248,20 @@ public class VideoPlayer {
   }
 
   public void searchVideos(String searchTerm) {
-    System.out.println("searchVideos needs implementation");
+    List<Video> videos = videoLibrary.getVideos();
+    Map<String, Video> nameVideo = new HashMap<>();
+    String keyFound = null;
+    for(Video v: videos) {
+      nameVideo.put(v.getTitle().toLowerCase(), v);
+    }
+    for(String name: nameVideo.keySet()) {
+      if(name.contains(searchTerm)) {
+        keyFound = name;
+      }
+    }
+    if(keyFound == null) {
+      System.out.printf("No search results for %s%n", searchTerm);
+    }
   }
 
   public void searchVideosWithTag(String videoTag) {
